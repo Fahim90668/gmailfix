@@ -1,3 +1,8 @@
+const users = [
+    { email: "user@example.com", password: "Password123" },
+    { email: "test@gmail.com", password: "TestPass456" }
+];
+
 function displayMessage(message, color) {
     const messageElement = document.getElementById('message');
     messageElement.style.color = color;
@@ -15,14 +20,9 @@ async function login() {
     if (email && password) {
         displayMessage("Logging in...", "blue");
 
-        // In a real application, you'd send data to the server here
-        const response = await fetch('/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-
-        if (response.ok) {
+        // Simulate login checking against hard-coded users
+        const user = users.find(u => u.email === email && u.password === password);
+        if (user) {
             displayMessage("Login successful!", "green");
         } else {
             displayMessage("Login failed. Check credentials.", "red");
@@ -39,18 +39,9 @@ async function signup() {
     if (validatePassword(password)) {
         displayMessage("Signing up...", "blue");
 
-        // Send data to the backend to store securely
-        const response = await fetch('/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-
-        if (response.ok) {
-            displayMessage("Signup successful!", "green");
-        } else {
-            displayMessage("Signup failed. Try again.", "red");
-        }
+        // Simulate a successful signup response
+        users.push({ email, password }); // Add to the list of users for testing
+        displayMessage("Signup successful!", "green");
     } else {
         displayMessage("Password too weak!", "red");
     }
